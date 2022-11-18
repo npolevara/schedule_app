@@ -1,0 +1,27 @@
+- description ||= nil
+- duration ||= nil
+
+.items-stretch.basis-1/5.sm:basis-1/3
+  .flex.flex-col.pt-4.font-light
+    .inline-flex
+      .items-center.justify-center.border.border-transparent.px-5.py-3.text-base.text-zink-800
+        = state_items(state: 1)[:item]
+        .items-center.justify-center.py-1.text-cyan-600.text-sm
+          = state_items(state: 1)[:description]
+    .inline-flex
+      .items-center.justify-center.border.border-transparent.px-5.py-3.text-base class="text-zinc-#{state_color(state, 1)}"
+        = state_items(state: 2)[:item]
+        -if description && duration
+          .items-center.justify-center.py-1.text-cyan-600.text-sm
+            = description
+          .items-center.justify-center.py-1.text-cyan-600.text-sm
+            = "#{duration} min"
+    .inline-flex
+      .items-center.justify-center.border.border-transparent.px-5.py-3.text-base class="text-zinc-#{state_color(state, 2)}"
+        = state_items(state: 3)[:item]
+    .inline-flex
+      .items-center.justify-center.border.border-transparent.px-5.py-3.text-base class="text-zinc-#{state_color(state, 3)}"
+        = state_items(state: 4)[:item]
+    .inline-flex
+      .items-center.justify-center.border.border-transparent.px-5.py-3.text-base class="text-zinc-#{state_color(state, 4)}"
+        = state_items(state: 5)[:item]

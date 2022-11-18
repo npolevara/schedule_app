@@ -1,0 +1,16 @@
+.mx-auto.flex-row.flex style="height: 100vh;"
+  = render 'left_row', state: 1                          
+  .items-center.border-b-2.border-gray-100.py-6.md:justify-start.md:space-x-10.basis-4/5.bg-slate-50.p-5.flex-1
+    .widget
+      - @resp.each do |service| 
+        .flex.items-center.container.mx-lg.shadow-md.p-6.bg-white.my-2
+          .flex-col.flex
+            .items-center.justify-center.md:inline.text-slate-800
+              = service[:attributes][:description]
+            .items-center.justify-center.md:inline.text-slate-800.font-light.text-sm
+              = "#{service[:attributes][:duration]} min"
+          .md:inline.text-slate-800 style="margin-left:auto;"
+              = form_with model: @service, method: :get, url: show_clinics_path(service[:id]), class: 'pointer-events-auto rounded bg-blue-400 py-2 px-3 text-sm leading-5 text-white hover:bg-blue-500 cursor-pointer' do |f|
+                -service[:attributes].each do |key, value|
+                  = f.hidden_field key, value: value
+                = f.submit 'Select'

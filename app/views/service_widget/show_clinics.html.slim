@@ -1,0 +1,20 @@
+.mx-auto.flex-row.flex style="height: 100vh;"
+  = render 'left_row', state: 2, description: @service.description, duration: @service.duration                         
+  .items-center.border-b-2.border-gray-100.py-6.md:justify-start.md:space-x-10.basis-4/5.bg-slate-50.p-5.flex-1
+    .widget
+      - @resp.each do |clinic| 
+          .flex.items-center.w-fit.mx-lg.shadow-md.p-6.bg-white.my-2
+            .flex-col.flex
+              .items-center.justify-center.md:inline.text-slate-800
+                .w-52.min-h-60.w-full.overflow-hidden.rounded-md.group-hover:opacity-75
+                  = image_tag("map.png", class: "h-full w-full object-cover object-center")
+                  .mt-4.ml-2
+                    .text-base = clinic[:attributes][:name]
+                    .mt-1.text-sm = clinic[:attributes][:phone]
+                    .md:inline.text-slate-800 style="margin-left:auto;"
+                  = form_with model: @service, method: :get, url: select_location_path(clinic[:id]), class: 'mt-4 pointer-events-auto rounded bg-blue-400 py-2 px-3 text-sm leading-5 text-white hover:bg-blue-500 cursor-pointer' do |f|
+                    - @service.attributes.each do |key, value|
+                      = f.hidden_field key, value: value
+                    - clinic[:attributes].each do |key, value|
+                      = f.hidden_field key, value: value
+                    = f.submit 'Select'
